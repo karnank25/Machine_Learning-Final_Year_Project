@@ -31,23 +31,6 @@ This project aims to develop an automated system for detecting and classifying *
 - README.md: Project documentation
 ```
 
----
-
-## Installation
-1. Clone this repository:
-   ```bash
-   git clone https://github.com/yourusername/knee-osteo-detection.git
-   ```
-2. Navigate to the project directory:
-   ```bash
-   cd knee-osteo-detection
-   ```
-3. Install the required packages:
-   ```bash
-   pip install -r requirements.txt
-   ```
-
----
 
 ## Usage
 1. Place your X-ray images in the `/data` directory.
@@ -72,12 +55,3 @@ This project aims to develop an automated system for detecting and classifying *
 - Remote healthcare diagnosis (Telemedicine)
 - Patient monitoring and follow-ups
 
----
-
-## Contributing
-Feel free to submit issues or pull requests for improvements.
-
----
-
-## License
-This project is licensed under the MIT License. See `LICENSE` for more details.
