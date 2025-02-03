@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+    }
+
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .left,
+    .right {
+        width: 300px;
+        height: 300px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .left {
+        text-align: center;
+    }
+
+    .left button {
+        align-items: baseline;
+    }
+
+    .middle {
+        margin-top: 50px;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 12px 12px 10px rgba(0, 0, 0, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        flex-direction: column;
+        width: 300px;
+        height: 60vh;
+        object-fit: cover;
+        transition-duration: 1s;
+    }
+
+    .middle:hover img {
+        cursor: pointer;
+        transform: scale(1.1);
+    }
+
+    .middle img {
+        width: 100%;
+        height: 100%;
+    }
+
+    .left img {
+        width: 90%;
+        height: 35vh;
+        margin: 20px;
+        border-radius: 10px;
+    }
+
+    .header {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+    }
+
+    .header h1 {
+        text-align: center;
+        width: 60%;
+        font-size: 5vh;
+        padding: 20px;
+        color: #2F4F4F;
+        border-radius: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    }
+
+    h1 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #2F4F4F;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    label {
+        display: block;
+        font-weight: bold;
+        color: #2F4F4F;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+        width: calc(95% - 10px);
+        padding: 10px;
+        margin-top: 5px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f8f8f8;
+    }
+
+    button {
+        width: 100%;
+        padding: 10px;
+        border: none;
+        background-color: #2F4F4F;
+        color: #FFF;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+        background-color: #424d57;
+    }
+
+    .train {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 300px;
+    }
+
+    .train button {
+        width: 100%;
+    }
+    #knee-text{
+        padding-top: 5px;
+        font-size: 1.2rem;
+        font-weight: 500;
+        color:#2F4F4F;
+    }
+
+    @media (max-width:900px) {
+        .container {
+            flex-direction: column;
+        }
+    }
+</style>
+
+<body>
+
+    <div class="header animated">
+        <h1>KNEE OSTEOARTHRITIS- SEVERITY GRADE CHECK</h1>
+    </div>
+
+    <div class="container">
+        <div class="left">
+            <div id="image-container">
+                <img src="/static/healthy.png" alt="knee.jpg" id="all-knee-images">
+                <p id="knee-text"></p>
+            </div>
+            <a href="/predict"><button>Predict Model</button></a>
+        </div>
+
+        <div class="middle">
+            <img src="{{ url_for('static', filename='/osteoarthritis.jpeg') }}" alt="Help Image">
+        </div>
+
+        <div class="right">
+            <h1>Login</h1>
+            {% if error %}
+            <div class="alert alert-danger" role="alert">
+                {{ error }}
+            </div>
+            {% endif %}
+            <form method="POST" action="/login">
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        var img = document.getElementById('all-knee-images');
+        var kneeYText =document.getElementById('knee-text')
+        var imgIndex = 0
+        
+        function myFunction() {
+            if(imgIndex === 0 )
+            { 
+               img.src = "/static/healthy.png"
+               imgIndex = 1
+               kneeYText.innerText = "Healthy"
+            }
+            else if (imgIndex === 1)
+            {
+               img.src = "/static/doubtful.png"
+               imgIndex = 2
+               kneeYText.innerText = "DoubtFul"
+            }
+            else if (imgIndex === 2)
+            {
+               img.src = "/static/minimal.png"
+               imgIndex = 3
+               kneeYText.innerText = "Minimal"
+            }
+            else if (imgIndex === 3)
+            {
+               img.src = "/static/moderate.png"
+               imgIndex = 4
+               kneeYText.innerText = "Moderate"
+            }
+            else if (imgIndex === 4)
+            {
+               img.src = "/static/severe.png"
+               imgIndex = 0
+               kneeYText.innerText = "Severe"
+            }
+            else{
+                img.src = "/static/healthy.png"
+               imgIndex = 0
+               kneeYText.innerText = "Healthy"
+            }
+        }
+        myFunction()
+
+        var intervalID = setInterval(myFunction, 4000);
+        window.addEventListener('beforeunload', function () {
+            clearInterval(intervalID);
+        });
+    </script>
+
+</body>
+
+</html>
